@@ -20,10 +20,6 @@ let matchingScore = 0;
 let matchingTimer = null;
 let matchingSeconds = 0;
 
-let timelineEvents = [];
-let currentLevel = 1;
-let droppedEvents = [];
-
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -750,124 +746,6 @@ function selectMatching(element, side, value, originalIndex) {
     }
 }
 
-// ============ TIMELINE CHALLENGE ============
-const timelineData = {
-    1: [
-        { year: 1931, event: 'Second Republic proclaimed', order: 0 },
-        { year: 1936, event: 'Civil War begins', order: 1 },
-        { year: 1939, event: 'Franco\'s victory', order: 2 },
-        { year: 1975, event: 'Franco dies', order: 3 }
-    ],
-    2: [
-        { year: 1931, event: 'Second Republic', order: 0 },
-        { year: 1933, event: 'Right-wing victory', order: 1 },
-        { year: 1936, event: 'Popular Front wins', order: 2 },
-        { year: 1936, event: 'Civil War starts', order: 3 },
-        { year: 1939, event: 'War ends', order: 4 },
-        { year: 1975, event: 'Franco dies', order: 5 }
-    ],
-    3: [
-        { year: 1931, event: 'Republic proclaimed', order: 0 },
-        { year: 1936, event: 'Civil War begins', order: 1 },
-        { year: 1939, event: 'Nationalist victory', order: 2 },
-        { year: 1959, event: 'Stabilization Plan', order: 3 },
-        { year: 1975, event: 'Franco dies', order: 4 },
-        { year: 1978, event: 'Constitution approved', order: 5 },
-        { year: 1981, event: 'Coup attempt 23-F', order: 6 },
-        { year: 1986, event: 'Spain joins EU', order: 7 }
-    ]
-};
-
-function startTimeline(level) {
-    currentLevel = level;
-    timelineEvents = [...timelineData[level]];
-    droppedEvents = [];
-    
-    // Shuffle events
-    shuffleArray(timelineEvents);
-    
-    // Show play area
-    document.querySelector('.level-selector').style.display = 'none';
-    document.getElementById('timeline-container').classList.remove('hidden');
-    
-    // Create event cards
-    const eventsContainer = document.getElementById('timeline-events');
-    eventsContainer.innerHTML = '';
-    
-    timelineEvents.forEach((event, index) => {
-        const card = document.createElement('div');
-        card.className = 'timeline-event-card';
-        card.textContent = `${event.year}: ${event.event}`;
-        card.draggable = true;
-        card.dataset.order = event.order;
-        card.dataset.index = index;
-        
-        card.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('text/plain', index);
-            card.classList.add('dragging');
-        });
-        
-        card.addEventListener('dragend', () => {
-            card.classList.remove('dragging');
-        });
-        
-        eventsContainer.appendChild(card);
-    });
-    
-    // Setup dropzone
-    const dropzone = document.getElementById('timeline-dropzone');
-    dropzone.innerHTML = '<div class="drop-placeholder">Drop events here in order</div>';
-    
-    dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-    });
-    
-    dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        const index = e.dataTransfer.getData('text/plain');
-        const card = document.querySelector(`[data-index="${index}"]`);
-        
-        if (card) {
-            // Remove placeholder if exists
-            const placeholder = dropzone.querySelector('.drop-placeholder');
-            if (placeholder) placeholder.remove();
-            
-            dropzone.appendChild(card);
-            droppedEvents.push(timelineEvents[index]);
-        }
-    });
-}
-
-function checkTimelineOrder() {
-    if (droppedEvents.length !== timelineEvents.length) {
-        alert('Please arrange all events first!');
-        return;
-    }
-    
-    let correct = true;
-    droppedEvents.forEach((event, index) => {
-        if (event.order !== index) {
-            correct = false;
-        }
-    });
-    
-    if (correct) {
-        alert(`🎉 Perfect! You got the timeline right!\n+30 points!`);
-        matchingScore += 30;
-        updateTotalPoints();
-        resetTimeline();
-        document.querySelector('.level-selector').style.display = 'block';
-        document.getElementById('timeline-container').classList.add('hidden');
-    } else {
-        alert('❌ Not quite right. Try again!');
-    }
-}
-
-function resetTimeline() {
-    droppedEvents = [];
-    startTimeline(currentLevel);
-}
-
 // ============ UTILITY FUNCTIONS ============
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -896,6 +774,3 @@ window.previousQuestion = previousQuestion;
 window.startTreasureHunt = startTreasureHunt;
 window.checkRiddleAnswer = checkRiddleAnswer;
 window.startMatching = startMatching;
-window.startTimeline = startTimeline;
-window.checkTimelineOrder = checkTimelineOrder;
-window.resetTimeline = resetTimeline;
