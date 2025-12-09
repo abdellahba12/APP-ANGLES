@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish History - Game Study Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎮 Spanish History Game Zone</h1>
+            <p class="subtitle">Learn through play - 12th Grade Edition</p>
+            <div class="score-display">
+                <span class="trophy">🏆</span>
+                <span id="total-points">Total Points: 0</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <button class="nav-btn active" data-section="home">🏠 Home</button>
+            <button class="nav-btn" data-section="flashcards">🎴 Memory Cards</button>
+            <button class="nav-btn" data-section="quiz">❓ Quiz Battle</button>
+            <button class="nav-btn" data-section="treasure">🗺️ Treasure Hunt</button>
+            <button class="nav-btn" data-section="matching">🔗 Matching Game</button>
+            <button class="nav-btn" data-section="timeline">⏱️ Timeline Challenge</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- SECTION: HOME -->
+        <section id="home" class="section active">
+            <div class="welcome-card">
+                <h2>Welcome, History Explorer! 🗺️</h2>
+                <p>Ready to master Spanish History through exciting games and challenges?</p>
+                
+                <div class="game-grid">
+                    <div class="game-card" onclick="showSection('flashcards')">
+                        <div class="game-icon">🎴</div>
+                        <h3>Memory Cards</h3>
+                        <p>Flip and learn! Test your memory with flashcards</p>
+                        <div class="points-badge">+10 pts per card</div>
+                    </div>
+                    
+                    <div class="game-card" onclick="showSection('quiz')">
+                        <div class="game-icon">❓</div>
+                        <h3>Quiz Battle</h3>
+                        <p>Answer questions and score points!</p>
+                        <div class="points-badge">+20 pts per correct</div>
+                    </div>
+                    
+                    <div class="game-card" onclick="showSection('treasure')">
+                        <div class="game-icon">🗺️</div>
+                        <h3>Treasure Hunt</h3>
+                        <p>Solve riddles to find hidden historical treasures</p>
+                        <div class="points-badge">+50 pts per treasure</div>
+                    </div>
+                    
+                    <div class="game-card" onclick="showSection('matching')">
+                        <div class="game-icon">🔗</div>
+                        <h3>Matching Game</h3>
+                        <p>Connect dates, events, and people!</p>
+                        <div class="points-badge">+15 pts per match</div>
+                    </div>
+                    
+                    <div class="game-card" onclick="showSection('timeline')">
+                        <div class="game-icon">⏱️</div>
+                        <h3>Timeline Challenge</h3>
+                        <p>Put events in the correct order</p>
+                        <div class="points-badge">+30 pts per level</div>
+                    </div>
+                </div>
+
+                <div class="topics-section">
+                    <h3>📚 Topics Covered:</h3>
+                    <div class="topic-tags">
+                        <span class="topic-tag">The Second Republic</span>
+                        <span class="topic-tag">Spanish Civil War</span>
+                        <span class="topic-tag">Political Catalanism</span>
+                        <span class="topic-tag">Francoism</span>
+                        <span class="topic-tag">The Restoration</span>
+                        <span class="topic-tag">Transition to Democracy</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: FLASHCARDS GAME -->
+        <section id="flashcards" class="section">
+            <h2>🎴 Memory Cards Game</h2>
+            <p class="section-description">Flip the cards to reveal the answer. Can you remember them all?</p>
+            
+            <div class="flashcard-controls">
+                <button onclick="loadFlashcardSet('republic')" class="control-btn">The Second Republic</button>
+                <button onclick="loadFlashcardSet('civilwar')" class="control-btn">Spanish Civil War</button>
+                <button onclick="loadFlashcardSet('francoism')" class="control-btn">Francoism Era</button>
+                <button onclick="loadFlashcardSet('transition')" class="control-btn">Democratic Transition</button>
+            </div>
+
+            <div class="game-stats">
+                <div class="stat">Cards Studied: <span id="cards-studied">0</span></div>
+                <div class="stat">Points Earned: <span id="flashcard-points">0</span></div>
+            </div>
+
+            <div class="flashcard-container">
+                <div id="flashcard" class="flashcard" onclick="flipCard()">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p>Select a topic above to start!</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p>Answer here</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flashcard-navigation">
+                    <button onclick="previousCard()" class="nav-card-btn">⬅️ Previous</button>
+                    <span id="card-counter">0 / 0</span>
+                    <button onclick="nextCard()" class="nav-card-btn">Next ➡️</button>
+                </div>
+                
+                <button onclick="markAsLearned()" class="learned-btn">✓ I know this! (+10 pts)</button>
+            </div>
+        </section>
+
+        <!-- SECTION: QUIZ BATTLE -->
+        <section id="quiz" class="section">
+            <h2>❓ Quiz Battle Arena</h2>
+            <p class="section-description">Test your knowledge! Get 20 points for each correct answer!</p>
+            
+            <div id="quiz-container" class="quiz-container">
+                <div class="quiz-start">
+                    <div class="difficulty-selector">
+                        <h3>Choose your difficulty:</h3>
+                        <button onclick="startQuiz('easy')" class="difficulty-btn easy">
+                            😊 Easy<br><span class="small">5 questions</span>
+                        </button>
+                        <button onclick="startQuiz('medium')" class="difficulty-btn medium">
+                            🤔 Medium<br><span class="small">10 questions</span>
+                        </button>
+                        <button onclick="startQuiz('hard')" class="difficulty-btn hard">
+                            🔥 Hard<br><span class="small">15 questions</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: TREASURE HUNT -->
+        <section id="treasure" class="section">
+            <h2>🗺️ Historical Treasure Hunt</h2>
+            <p class="section-description">Solve riddles to discover hidden treasures from Spanish history!</p>
+            
+            <div class="treasure-game">
+                <div class="treasure-map">
+                    <div class="map-grid" id="treasure-map">
+                        <!-- Treasure spots will be generated here -->
+                    </div>
+                </div>
+                
+                <div class="treasure-panel">
+                    <div class="current-riddle">
+                        <h3>🔍 Current Riddle:</h3>
+                        <p id="riddle-text">Click "Start Hunt" to begin your adventure!</p>
+                        <input type="text" id="riddle-answer" placeholder="Type your answer here" class="riddle-input">
+                        <button onclick="checkRiddleAnswer()" class="check-btn">Check Answer</button>
+                    </div>
+                    
+                    <div class="treasures-found">
+                        <h4>Treasures Found: <span id="treasures-count">0/6</span></h4>
+                        <div id="treasure-list" class="treasure-items"></div>
+                    </div>
+                    
+                    <button onclick="startTreasureHunt()" class="start-hunt-btn">🎯 Start Hunt</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: MATCHING GAME -->
+        <section id="matching" class="section">
+            <h2>🔗 History Matching Game</h2>
+            <p class="section-description">Connect dates with events, or people with their actions!</p>
+            
+            <div class="matching-controls">
+                <button onclick="startMatching('dates')" class="control-btn">Match Dates & Events</button>
+                <button onclick="startMatching('people')" class="control-btn">Match People & Actions</button>
+                <button onclick="startMatching('causes')" class="control-btn">Match Causes & Effects</button>
+            </div>
+
+            <div class="matching-stats">
+                <div class="stat">Matches Made: <span id="matches-made">0</span></div>
+                <div class="stat">Points: <span id="matching-points">0</span></div>
+                <div class="stat">Time: <span id="matching-time">0:00</span></div>
+            </div>
+            
+            <div id="matching-game" class="matching-container">
+                <div class="matching-instruction">
+                    <p>👆 Select a topic above to start matching!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: TIMELINE CHALLENGE -->
+        <section id="timeline" class="section">
+            <h2>⏱️ Timeline Challenge</h2>
+            <p class="section-description">Drag events into the correct chronological order!</p>
+            
+            <div class="timeline-game">
+                <div class="level-selector">
+                    <h3>Choose your level:</h3>
+                    <button onclick="startTimeline(1)" class="level-btn">Level 1: 4 events</button>
+                    <button onclick="startTimeline(2)" class="level-btn">Level 2: 6 events</button>
+                    <button onclick="startTimeline(3)" class="level-btn">Level 3: 8 events</button>
+                </div>
+                
+                <div id="timeline-container" class="timeline-play-area hidden">
+                    <div class="timeline-instructions">
+                        <p>Drag the events below into chronological order (oldest to newest)</p>
+                    </div>
+                    
+                    <div id="timeline-dropzone" class="timeline-dropzone">
+                        <div class="drop-placeholder">Drop events here in order</div>
+                    </div>
+                    
+                    <div id="timeline-events" class="timeline-events-pile">
+                        <!-- Events will be generated here -->
+                    </div>
+                    
+                    <div class="timeline-actions">
+                        <button onclick="checkTimelineOrder()" class="check-timeline-btn">✓ Check Order</button>
+                        <button onclick="resetTimeline()" class="reset-btn">🔄 Reset</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>🎮 Spanish History Game Zone - Learn while having fun! | Your Progress: <span id="footer-points">0 points</span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
