@@ -25,7 +25,6 @@
             <button class="nav-btn" data-section="quiz">❓ Quiz Battle</button>
             <button class="nav-btn" data-section="treasure">🗺️ Treasure Hunt</button>
             <button class="nav-btn" data-section="matching">🔗 Matching Game</button>
-            <button class="nav-btn" data-section="timeline">⏱️ Timeline Challenge</button>
         </div>
     </nav>
 
@@ -63,13 +62,6 @@
                         <h3>Matching Game</h3>
                         <p>Connect dates, events, and people!</p>
                         <div class="points-badge">+15 pts per match</div>
-                    </div>
-                    
-                    <div class="game-card" onclick="showSection('timeline')">
-                        <div class="game-icon">⏱️</div>
-                        <h3>Timeline Challenge</h3>
-                        <p>Put events in the correct order</p>
-                        <div class="points-badge">+30 pts per level</div>
                     </div>
                 </div>
 
@@ -202,45 +194,11 @@
                 </div>
             </div>
         </section>
-
-        <!-- SECTION: TIMELINE CHALLENGE -->
-        <section id="timeline" class="section">
-            <h2>⏱️ Timeline Challenge</h2>
-            <p class="section-description">Drag events into the correct chronological order!</p>
-            
-            <div class="timeline-game">
-                <div class="level-selector">
-                    <h3>Choose your level:</h3>
-                    <button onclick="startTimeline(1)" class="level-btn">Level 1: 4 events</button>
-                    <button onclick="startTimeline(2)" class="level-btn">Level 2: 6 events</button>
-                    <button onclick="startTimeline(3)" class="level-btn">Level 3: 8 events</button>
-                </div>
-                
-                <div id="timeline-container" class="timeline-play-area hidden">
-                    <div class="timeline-instructions">
-                        <p>Drag the events below into chronological order (oldest to newest)</p>
-                    </div>
-                    
-                    <div id="timeline-dropzone" class="timeline-dropzone">
-                        <div class="drop-placeholder">Drop events here in order</div>
-                    </div>
-                    
-                    <div id="timeline-events" class="timeline-events-pile">
-                        <!-- Events will be generated here -->
-                    </div>
-                    
-                    <div class="timeline-actions">
-                        <button onclick="checkTimelineOrder()" class="check-timeline-btn">✓ Check Order</button>
-                        <button onclick="resetTimeline()" class="reset-btn">🔄 Reset</button>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>🎮 Spanish History Game Zone - Learn while having fun! | Your Progress: <span id="footer-points">0 points</span></p>
+            <p>🎮 Spanish History Game by Abdellah and Lahcen | Your Progress: <span id="footer-points">0 points</span></p>
         </div>
     </footer>
 
