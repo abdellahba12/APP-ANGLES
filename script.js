@@ -20,6 +20,9 @@ let matchingScore = 0;
 let matchingTimer = null;
 let matchingSeconds = 0;
 
+let currentPhase = 1;
+let resources = { 2: [], 3: [], 4: [] };
+
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -31,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     updateTotalPoints();
+    updatePhaseProgress();
 });
 
 // Navigation
@@ -56,6 +60,87 @@ function updateTotalPoints() {
     totalPoints = flashcardPoints + (quizScore * 20) + (treasuresFound * 50) + matchingScore;
     document.getElementById('total-points').textContent = `Total Points: ${totalPoints}`;
     document.getElementById('footer-points').textContent = `${totalPoints} points`;
+}
+
+// ============ PHASES NAVIGATION ============
+function updatePhaseProgress() {
+    const progress = (currentPhase / 5) * 100;
+    document.getElementById('phase-progress').style.width = progress + '%';
+    document.getElementById('current-phase').textContent = currentPhase;
+}
+
+function nextPhase(phaseNumber) {
+    // Hide current phase
+    const currentPhaseEl = document.getElementById(`phase-${currentPhase}`);
+    if (currentPhaseEl) {
+        currentPhaseEl.classList.add('hidden');
+    }
+    
+    // Show next phase
+    currentPhase = phaseNumber;
+    const nextPhaseEl = document.getElementById(`phase-${phaseNumber}`);
+    if (nextPhaseEl) {
+        nextPhaseEl.classList.remove('hidden');
+    }
+    
+    updatePhaseProgress();
+    
+    // Scroll to top of phases section
+    const phasesSection = document.getElementById('phases');
+    if (phasesSection) {
+        phasesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function previousPhase(phaseNumber) {
+    nextPhase(phaseNumber);
+}
+
+function addResource(phase) {
+    const input = document.querySelector(`#phase-${phase} .resource-input`);
+    const url = input.value.trim();
+    
+    if (url) {
+        resources[phase].push(url);
+        
+        const list = document.getElementById(`resources-phase-${phase}`);
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${url}</span>
+            <button onclick="removeResource(${phase}, ${resources[phase].length - 1})" 
+                    style="background: var(--danger); color: white; border: none; padding: 5px 15px; 
+                    border-radius: 5px; cursor: pointer;">Remove</button>
+        `;
+        list.appendChild(li);
+        
+        input.value = '';
+    }
+}
+
+function removeResource(phase, index) {
+    resources[phase].splice(index, 1);
+    refreshResourceList(phase);
+}
+
+function refreshResourceList(phase) {
+    const list = document.getElementById(`resources-phase-${phase}`);
+    list.innerHTML = '';
+    
+    resources[phase].forEach((url, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${url}</span>
+            <button onclick="removeResource(${phase}, ${index})" 
+                    style="background: var(--danger); color: white; border: none; padding: 5px 15px; 
+                    border-radius: 5px; cursor: pointer;">Remove</button>
+        `;
+        list.appendChild(li);
+    });
+}
+
+function completeAllPhases() {
+    alert('🎉 ¡Felicidades! Has completado todas las fases. Ahora practica con los juegos.');
+    showSection('flashcards');
 }
 
 // ============ FLASHCARDS ============
@@ -170,14 +255,12 @@ function markAsLearned() {
     document.getElementById('flashcard-points').textContent = flashcardPoints;
     updateTotalPoints();
     
-    // Show celebration
     const btn = document.querySelector('.learned-btn');
     btn.textContent = '✓ Great! +10 pts';
     setTimeout(() => {
         btn.textContent = '✓ I know this! (+10 pts)';
     }, 1000);
     
-    // Move to next card
     nextCard();
 }
 
@@ -467,7 +550,7 @@ function showQuizResults() {
                 <p><strong>Points Earned:</strong> ${quizScore * 20}</p>
                 <p>${feedback}</p>
             </div>
-            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
                 <button class="difficulty-btn easy" onclick="startQuiz('easy')">Try Easy</button>
                 <button class="difficulty-btn medium" onclick="startQuiz('medium')">Try Medium</button>
                 <button class="difficulty-btn hard" onclick="startQuiz('hard')">Try Hard</button>
@@ -519,7 +602,6 @@ function startTreasureHunt() {
     document.getElementById('treasure-list').innerHTML = '';
     document.getElementById('riddle-answer').value = '';
     
-    // Create map
     const mapContainer = document.getElementById('treasure-map');
     mapContainer.innerHTML = '';
     
@@ -532,7 +614,6 @@ function startTreasureHunt() {
         mapContainer.appendChild(spot);
     }
     
-    // Distribute treasures randomly
     const positions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     shuffleArray(positions);
     
@@ -572,30 +653,24 @@ function checkRiddleAnswer() {
     const correctAnswer = currentRiddle.answer.toLowerCase();
     
     if (userAnswer === correctAnswer) {
-        // Correct!
         currentRiddle.found = true;
         treasuresFound++;
         
-        // Update map
         const spot = document.querySelector(`[data-index="${currentRiddle.position}"]`);
         spot.classList.add('found');
         spot.textContent = '💎';
         spot.onclick = null;
         
-        // Add to treasure list
         const treasureList = document.getElementById('treasure-list');
         const treasureItem = document.createElement('div');
-        treasureItem.className = 'treasure-item fade-in';
+        treasureItem.className = 'treasure-item';
         treasureItem.textContent = currentRiddle.treasure;
         treasureList.appendChild(treasureItem);
         
-        // Update counter
         document.getElementById('treasures-count').textContent = `${treasuresFound}/6`;
         
-        // Update points
         updateTotalPoints();
         
-        // Reset riddle
         document.getElementById('riddle-text').textContent = treasuresFound === 6 ? '🎉 All treasures found! You\'re a history master!' : 'Great! Find the next treasure!';
         document.getElementById('riddle-answer').value = '';
         currentRiddle = null;
@@ -635,7 +710,6 @@ function startMatching(type) {
     matchingScore = 0;
     matchingSeconds = 0;
     
-    // Start timer
     if (matchingTimer) clearInterval(matchingTimer);
     matchingTimer = setInterval(() => {
         matchingSeconds++;
@@ -645,12 +719,10 @@ function startMatching(type) {
             `${minutes}:${seconds.toString().padStart(2, '0')}`;
     }, 1000);
     
-    // Shuffle right column
     const leftItems = [...data.left];
     const rightItems = [...data.right];
     shuffleArray(rightItems);
     
-    // Create game
     const container = document.getElementById('matching-game');
     container.innerHTML = `
         <div class="matching-grid">
@@ -685,7 +757,6 @@ function startMatching(type) {
         div.textContent = item;
         div.dataset.side = 'right';
         div.dataset.value = item;
-        // Find original index
         const originalIndex = data.right.indexOf(item);
         div.dataset.originalIndex = originalIndex;
         div.onclick = () => selectMatching(div, 'right', item, originalIndex);
@@ -699,22 +770,18 @@ function startMatching(type) {
 function selectMatching(element, side, value, originalIndex) {
     if (element.classList.contains('matched')) return;
     
-    // If same side already selected, deselect
     if (selectedMatching.length > 0 && selectedMatching[0].side === side) {
         selectedMatching[0].element.classList.remove('selected');
         selectedMatching = [];
     }
     
-    // Select
     if (selectedMatching.length === 0) {
         element.classList.add('selected');
         selectedMatching.push({ side, value, originalIndex, element });
     } else {
-        // Check match
         const first = selectedMatching[0];
         
         if (first.originalIndex === originalIndex && first.side !== side) {
-            // Correct match!
             element.classList.add('matched');
             first.element.classList.remove('selected');
             first.element.classList.add('matched');
@@ -727,7 +794,6 @@ function selectMatching(element, side, value, originalIndex) {
             
             selectedMatching = [];
             
-            // Check if all matched
             if (document.querySelectorAll('.matching-item.matched').length === 12) {
                 clearInterval(matchingTimer);
                 setTimeout(() => {
@@ -735,7 +801,6 @@ function selectMatching(element, side, value, originalIndex) {
                 }, 500);
             }
         } else {
-            // Wrong match
             element.classList.add('selected');
             setTimeout(() => {
                 element.classList.remove('selected');
@@ -762,6 +827,11 @@ function formatTime(seconds) {
 
 // Make functions global
 window.showSection = showSection;
+window.nextPhase = nextPhase;
+window.previousPhase = previousPhase;
+window.addResource = addResource;
+window.removeResource = removeResource;
+window.completeAllPhases = completeAllPhases;
 window.loadFlashcardSet = loadFlashcardSet;
 window.flipCard = flipCard;
 window.nextCard = nextCard;
@@ -773,4 +843,6 @@ window.checkAnswer = checkAnswer;
 window.previousQuestion = previousQuestion;
 window.startTreasureHunt = startTreasureHunt;
 window.checkRiddleAnswer = checkRiddleAnswer;
+window.revealRiddle = revealRiddle;
 window.startMatching = startMatching;
+window.selectMatching = selectMatching;
