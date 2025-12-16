@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spanish History - Game Study Guide</title>
+    <title>Spanish History - Interactive Study Guide</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>🎮 Spanish History Game Zone</h1>
-            <p class="subtitle">Learn through play - 12th Grade Edition</p>
+            <h1>📚 Spanish History Study Guide</h1>
+            <p class="subtitle">Learn, Collaborate, and Master - 12th Grade Edition</p>
             <div class="score-display">
                 <span class="trophy">🏆</span>
                 <span id="total-points">Total Points: 0</span>
@@ -21,6 +21,7 @@
     <nav class="main-nav">
         <div class="container">
             <button class="nav-btn active" data-section="home">🏠 Home</button>
+            <button class="nav-btn" data-section="phases">📋 Study Phases</button>
             <button class="nav-btn" data-section="flashcards">🎴 Memory Cards</button>
             <button class="nav-btn" data-section="quiz">❓ Quiz Battle</button>
             <button class="nav-btn" data-section="treasure">🗺️ Treasure Hunt</button>
@@ -33,35 +34,49 @@
         <section id="home" class="section active">
             <div class="welcome-card">
                 <h2>Welcome, History Explorer! 🗺️</h2>
-                <p>Ready to master Spanish History through exciting games and challenges?</p>
+                <p>Ready to master Spanish History through collaboration and exciting activities?</p>
                 
-                <div class="game-grid">
-                    <div class="game-card" onclick="showSection('flashcards')">
-                        <div class="game-icon">🎴</div>
-                        <h3>Memory Cards</h3>
-                        <p>Flip and learn! Test your memory with flashcards</p>
-                        <div class="points-badge">+10 pts per card</div>
+                <div class="home-layout">
+                    <div class="phases-preview">
+                        <h3>📋 Your Learning Journey</h3>
+                        <p>Follow our 5-phase collaborative approach:</p>
+                        <div class="phase-mini-cards">
+                            <div class="phase-mini">1️⃣ Explore & Research</div>
+                            <div class="phase-mini">2️⃣ Analyse</div>
+                            <div class="phase-mini">3️⃣ Create</div>
+                            <div class="phase-mini">4️⃣ Share</div>
+                            <div class="phase-mini">5️⃣ Reflect</div>
+                        </div>
+                        <button onclick="showSection('phases')" class="cta-btn">Start Your Journey →</button>
                     </div>
-                    
-                    <div class="game-card" onclick="showSection('quiz')">
-                        <div class="game-icon">❓</div>
-                        <h3>Quiz Battle</h3>
-                        <p>Answer questions and score points!</p>
-                        <div class="points-badge">+20 pts per correct</div>
-                    </div>
-                    
-                    <div class="game-card" onclick="showSection('treasure')">
-                        <div class="game-icon">🗺️</div>
-                        <h3>Treasure Hunt</h3>
-                        <p>Solve riddles to find hidden historical treasures</p>
-                        <div class="points-badge">+50 pts per treasure</div>
-                    </div>
-                    
-                    <div class="game-card" onclick="showSection('matching')">
-                        <div class="game-icon">🔗</div>
-                        <h3>Matching Game</h3>
-                        <p>Connect dates, events, and people!</p>
-                        <div class="points-badge">+15 pts per match</div>
+
+                    <div class="games-preview">
+                        <h3>🎮 Practice Games</h3>
+                        <div class="game-grid">
+                            <div class="game-card-small" onclick="showSection('flashcards')">
+                                <div class="game-icon-small">🎴</div>
+                                <h4>Memory Cards</h4>
+                                <span class="points-mini">+10 pts</span>
+                            </div>
+                            
+                            <div class="game-card-small" onclick="showSection('quiz')">
+                                <div class="game-icon-small">❓</div>
+                                <h4>Quiz Battle</h4>
+                                <span class="points-mini">+20 pts</span>
+                            </div>
+                            
+                            <div class="game-card-small" onclick="showSection('treasure')">
+                                <div class="game-icon-small">🗺️</div>
+                                <h4>Treasure Hunt</h4>
+                                <span class="points-mini">+50 pts</span>
+                            </div>
+                            
+                            <div class="game-card-small" onclick="showSection('matching')">
+                                <div class="game-icon-small">🔗</div>
+                                <h4>Matching</h4>
+                                <span class="points-mini">+15 pts</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -75,6 +90,448 @@
                         <span class="topic-tag">The Restoration</span>
                         <span class="topic-tag">Transition to Democracy</span>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: STUDY PHASES -->
+        <section id="phases" class="section">
+            <h2>📋 Study Phases - Self-Study Guide</h2>
+            <p class="section-description">Follow these 5 phases to create your Spanish History study guide collaboratively</p>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="phase-progress"></div>
+                </div>
+                <div class="progress-labels">
+                    <span>Phase <span id="current-phase">1</span> of 5</span>
+                </div>
+            </div>
+
+            <!-- Key Phrases Panel -->
+            <div class="key-phrases-panel">
+                <h3>🔑 KEY PHRASES - Use these for team communication:</h3>
+                <div class="phrases-grid">
+                    <div class="phrase-category">
+                        <h4>Clarifying</h4>
+                        <ul>
+                            <li>"Sorry, I'm a bit confused..."</li>
+                            <li>"So, am I right in thinking that...?"</li>
+                            <li>"Sorry, can you explain that again, please?"</li>
+                            <li>"Can I check I've understood, please?"</li>
+                            <li>"Sorry, let me explain that again..."</li>
+                            <li>"In other words..."</li>
+                        </ul>
+                    </div>
+                    <div class="phrase-category">
+                        <h4>Teamwork</h4>
+                        <ul>
+                            <li>"Now, as a team, think about how you can present this information"</li>
+                            <li>"Which self-study ideas do you want to include?"</li>
+                            <li>"What information to include about each idea?"</li>
+                            <li>"How will you present your ideas and information?"</li>
+                            <li>"Which will design and create your part of the guide?"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 1: Explore & Research -->
+            <div class="phase-container" id="phase-1">
+                <div class="phase-header">
+                    <h3>1️⃣ Phase 1: Explore & Research</h3>
+                    <p class="phase-subtitle">Choose your topic and explore study methods</p>
+                </div>
+                <div class="phase-content">
+                    <div class="task-section">
+                        <h4>📝 Your Task:</h4>
+                        <p><strong>Create a self-study guide for Spanish History</strong></p>
+                        <p>Each team will produce a different section of the guide based on one aspect of Spanish History. What resources exist for self-study? How do you use them?</p>
+                    </div>
+
+                    <div class="activities-section">
+                        <h4>🎯 Activities:</h4>
+                        <div class="activity-grid">
+                            <div class="activity-card">
+                                <h5>1. Divide into small teams</h5>
+                                <p>Each team should choose one area of Spanish History from the box</p>
+                                <div class="topic-selection">
+                                    <label><input type="checkbox" class="phase-check"> The Second Republic</label>
+                                    <label><input type="checkbox" class="phase-check"> Spanish Civil War</label>
+                                    <label><input type="checkbox" class="phase-check"> Francoism</label>
+                                    <label><input type="checkbox" class="phase-check"> Political Catalanism</label>
+                                    <label><input type="checkbox" class="phase-check"> The Restoration</label>
+                                    <label><input type="checkbox" class="phase-check"> Democratic Transition</label>
+                                </div>
+                            </div>
+
+                            <div class="activity-card">
+                                <h5>2. Research Study Methods</h5>
+                                <p>How can you practice this aspect outside of the classroom?</p>
+                                <div class="method-bubbles">
+                                    <span class="method-bubble">📖 Reading documents</span>
+                                    <span class="method-bubble">🎧 Listening to podcasts</span>
+                                    <span class="method-bubble">🗣️ Speaking with experts</span>
+                                    <span class="method-bubble">✍️ Writing summaries</span>
+                                    <span class="method-bubble">📚 Vocabulary practice</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-card full-width">
+                                <h5>3. Team Discussion</h5>
+                                <p>Start a language exchange group, search films and TV with subtitles on YouTube...</p>
+                                <div class="discussion-methods">
+                                    <div class="method-option">
+                                        <span class="method-icon">💬</span>
+                                        <div>
+                                            <strong>Speaking fluency</strong>
+                                            <p>Practice with a friend</p>
+                                        </div>
+                                        <input type="checkbox" class="phase-check">
+                                    </div>
+                                    <div class="method-option">
+                                        <span class="method-icon">📱</span>
+                                        <div>
+                                            <strong>Use apps</strong>
+                                            <p>Language exchange groups</p>
+                                        </div>
+                                        <input type="checkbox" class="phase-check">
+                                    </div>
+                                    <div class="method-option">
+                                        <span class="method-icon">🎬</span>
+                                        <div>
+                                            <strong>Watch media</strong>
+                                            <p>Films and TV with subtitles</p>
+                                        </div>
+                                        <input type="checkbox" class="phase-check">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notes-section">
+                        <h4>📝 Team Notes:</h4>
+                        <textarea class="team-notes" placeholder="Write your team's ideas and research notes here..."></textarea>
+                    </div>
+                </div>
+                <button class="phase-btn" onclick="nextPhase(2)">Complete Phase 1 →</button>
+            </div>
+
+            <!-- Phase 2: Analyse -->
+            <div class="phase-container hidden" id="phase-2">
+                <div class="phase-header">
+                    <h3>2️⃣ Phase 2: Analyse</h3>
+                    <p class="phase-subtitle">Do research online and collect information</p>
+                </div>
+                <div class="phase-content">
+                    <div class="task-section">
+                        <h4>🔍 Your Task:</h4>
+                        <p>Do some research online to find out more about the ideas you had in Phase 1</p>
+                    </div>
+
+                    <div class="activities-section">
+                        <h4>🎯 Activities:</h4>
+                        <div class="activity-grid">
+                            <div class="activity-card">
+                                <h5>1. Prepare first draft</h5>
+                                <p>Prepare a first draft of your guide</p>
+                                <label><input type="checkbox" class="phase-check"> Draft completed</label>
+                            </div>
+
+                            <div class="activity-card">
+                                <h5>2. Review as a team</h5>
+                                <p>Review it as a team</p>
+                                <label><input type="checkbox" class="phase-check"> Team review done</label>
+                            </div>
+
+                            <div class="activity-card">
+                                <h5>3. Share and give feedback</h5>
+                                <p>Share your research and give feedback to your teammates</p>
+                                <label><input type="checkbox" class="phase-check"> Feedback shared</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="research-section">
+                        <h4>🔗 Research Links & Resources:</h4>
+                        <div class="resource-links">
+                            <input type="text" placeholder="Add resource URL..." class="resource-input">
+                            <button onclick="addResource(2)" class="add-btn">+ Add</button>
+                        </div>
+                        <ul class="resource-list" id="resources-phase-2"></ul>
+                    </div>
+
+                    <div class="notes-section">
+                        <h4>📝 Research Notes:</h4>
+                        <textarea class="team-notes" placeholder="Collect all your research information here..."></textarea>
+                    </div>
+                </div>
+                <div class="phase-navigation">
+                    <button class="phase-btn-secondary" onclick="previousPhase(1)">← Back to Phase 1</button>
+                    <button class="phase-btn" onclick="nextPhase(3)">Complete Phase 2 →</button>
+                </div>
+            </div>
+
+            <!-- Phase 3: Create -->
+            <div class="phase-container hidden" id="phase-3">
+                <div class="phase-header">
+                    <h3>3️⃣ Phase 3: Create</h3>
+                    <p class="phase-subtitle">Develop your study guide as a team</p>
+                </div>
+                <div class="phase-content">
+                    <div class="task-section">
+                        <h4>✨ Your Task:</h4>
+                        <p><strong>Now do the following:</strong></p>
+                    </div>
+
+                    <div class="activities-section">
+                        <h4>🎯 Steps:</h4>
+                        <div class="create-steps">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Prepare a first draft of your guide</h5>
+                                    <label><input type="checkbox" class="phase-check"> Completed</label>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Review it as a team</h5>
+                                    <label><input type="checkbox" class="phase-check"> Completed</label>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h5>Share and give feedback</h5>
+                                    <label><input type="checkbox" class="phase-check"> Completed</label>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h5>Create a final draft of your part of the guide</h5>
+                                    <label><input type="checkbox" class="phase-check"> Completed</label>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">5</div>
+                                <div class="step-content">
+                                    <h5>Add your part to the rest of the guide</h5>
+                                    <label><input type="checkbox" class="phase-check"> Completed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="design-section">
+                        <h4>🎨 Design Your Guide:</h4>
+                        <p>How will you design and create your part of the guide?</p>
+                        <div class="design-options">
+                            <label class="design-option">
+                                <input type="radio" name="design-method" class="phase-check">
+                                <span>📄 Document (Google Docs, Word)</span>
+                            </label>
+                            <label class="design-option">
+                                <input type="radio" name="design-method" class="phase-check">
+                                <span>📊 Presentation (PowerPoint, Slides)</span>
+                            </label>
+                            <label class="design-option">
+                                <input type="radio" name="design-method" class="phase-check">
+                                <span>🎨 Poster / Infographic</span>
+                            </label>
+                            <label class="design-option">
+                                <input type="radio" name="design-method" class="phase-check">
+                                <span>🎥 Video presentation</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="notes-section">
+                        <h4>📝 Creation Notes:</h4>
+                        <textarea class="team-notes" placeholder="Describe your guide design and content..."></textarea>
+                    </div>
+                </div>
+                <div class="phase-navigation">
+                    <button class="phase-btn-secondary" onclick="previousPhase(2)">← Back to Phase 2</button>
+                    <button class="phase-btn" onclick="nextPhase(4)">Complete Phase 3 →</button>
+                </div>
+            </div>
+
+            <!-- Phase 4: Share -->
+            <div class="phase-container hidden" id="phase-4">
+                <div class="phase-header">
+                    <h3>4️⃣ Phase 4: Share</h3>
+                    <p class="phase-subtitle">Present your guide to the class</p>
+                </div>
+                <div class="phase-content">
+                    <div class="task-section">
+                        <h4>🎤 Your Task:</h4>
+                        <p>Present your part of the guide to the other teams in your class. Discuss the questions.</p>
+                    </div>
+
+                    <div class="activities-section">
+                        <h4>💬 Discussion Questions:</h4>
+                        <div class="question-cards">
+                            <div class="question-card">
+                                <div class="q-number">1</div>
+                                <div class="q-content">
+                                    <p>How useful is the information presented?</p>
+                                    <textarea class="answer-box" placeholder="Your team's answer..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="question-card">
+                                <div class="q-number">2</div>
+                                <div class="q-content">
+                                    <p>How clearly is the information presented?</p>
+                                    <textarea class="answer-box" placeholder="Your team's answer..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="question-card">
+                                <div class="q-number">3</div>
+                                <div class="q-content">
+                                    <p>What have you learned from other people's research?</p>
+                                    <textarea class="answer-box" placeholder="Your team's answer..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="presentation-checklist">
+                        <h4>✅ Presentation Checklist:</h4>
+                        <label><input type="checkbox" class="phase-check"> All team members participated</label>
+                        <label><input type="checkbox" class="phase-check"> Information was clear and organized</label>
+                        <label><input type="checkbox" class="phase-check"> Visual aids were effective</label>
+                        <label><input type="checkbox" class="phase-check"> Questions were answered</label>
+                        <label><input type="checkbox" class="phase-check"> Feedback was received</label>
+                    </div>
+                </div>
+                <div class="phase-navigation">
+                    <button class="phase-btn-secondary" onclick="previousPhase(3)">← Back to Phase 3</button>
+                    <button class="phase-btn" onclick="nextPhase(5)">Complete Phase 4 →</button>
+                </div>
+            </div>
+
+            <!-- Phase 5: Reflect -->
+            <div class="phase-container hidden" id="phase-5">
+                <div class="phase-header">
+                    <h3>5️⃣ Phase 5: Reflect</h3>
+                    <p class="phase-subtitle">Evaluate your learning journey</p>
+                </div>
+                <div class="phase-content">
+                    <div class="task-section">
+                        <h4>🤔 Your Task:</h4>
+                        <p>Read and score yourself from 1-3 for each sentence</p>
+                    </div>
+
+                    <div class="reflection-section">
+                        <div class="reflection-category">
+                            <h4>📚 Knowledge</h4>
+                            <p class="reflection-desc">I know how to select useful information</p>
+                            <div class="scoring-scale">
+                                <label class="score-option">
+                                    <input type="radio" name="knowledge" value="1">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😟</span>
+                                        <span class="score-text">1 - Not satisfied</span>
+                                    </span>
+                                </label>
+                                <label class="score-option">
+                                    <input type="radio" name="knowledge" value="2">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😊</span>
+                                        <span class="score-text">2 - Satisfied</span>
+                                    </span>
+                                </label>
+                                <label class="score-option">
+                                    <input type="radio" name="knowledge" value="3">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😄</span>
+                                        <span class="score-text">3 - Very satisfied</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="reflection-category">
+                            <h4>🛠️ Skills</h4>
+                            <p class="reflection-desc">I can clarify information</p>
+                            <div class="scoring-scale">
+                                <label class="score-option">
+                                    <input type="radio" name="skills" value="1">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😟</span>
+                                        <span class="score-text">1 - Not satisfied</span>
+                                    </span>
+                                </label>
+                                <label class="score-option">
+                                    <input type="radio" name="skills" value="2">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😊</span>
+                                        <span class="score-text">2 - Satisfied</span>
+                                    </span>
+                                </label>
+                                <label class="score-option">
+                                    <input type="radio" name="skills" value="3">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😄</span>
+                                        <span class="score-text">3 - Very satisfied</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="reflection-category">
+                            <h4>💝 Attitude</h4>
+                            <p class="reflection-desc">I can respect other people's decisions</p>
+                            <div class="scoring-scale">
+                                <label class="score-option">
+                                    <input type="radio" name="attitude" value="1">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😟</span>
+                                        <span class="score-text">1 - Not satisfied</span>
+                                    </span>
+                                </label>
+                                <label class="score-option">
+                                    <input type="radio" name="attitude" value="2">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😊</span>
+                                        <span class="score-text">2 - Satisfied</span>
+                                    </span>
+                                </label>
+                                <label class="score-option">
+                                    <input type="radio" name="attitude" value="3">
+                                    <span class="score-label">
+                                        <span class="score-emoji">😄</span>
+                                        <span class="score-text">3 - Very satisfied</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="final-reflection">
+                        <h4>✍️ Final Thoughts:</h4>
+                        <textarea class="team-notes" placeholder="What did you learn? What would you improve next time? How has this experience helped you?"></textarea>
+                    </div>
+
+                    <div class="completion-card">
+                        <h3>🎉 Congratulations!</h3>
+                        <p>You've completed all 5 phases of your Spanish History study guide!</p>
+                        <p><strong>Now practice your knowledge with the games below ↓</strong></p>
+                    </div>
+                </div>
+                <div class="phase-navigation">
+                    <button class="phase-btn-secondary" onclick="previousPhase(4)">← Back to Phase 4</button>
+                    <button class="phase-btn success" onclick="completeAllPhases()">🎓 Finish & Start Games</button>
                 </div>
             </div>
         </section>
@@ -198,7 +655,7 @@
 
     <footer>
         <div class="container">
-            <p>🎮 Spanish History Game by Abdellah and Lahcen | Your Progress: <span id="footer-points">0 points</span></p>
+            <p>📚 Spanish History Study Guide by Abdellah and Lahcen | Progress: <span id="footer-points">0 points</span></p>
         </div>
     </footer>
 
